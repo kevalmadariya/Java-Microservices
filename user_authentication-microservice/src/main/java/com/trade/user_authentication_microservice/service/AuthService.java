@@ -37,7 +37,7 @@ public class AuthService {
 
         if (PasswordUtil.checkPassword(loginRequestDto.getPassword(), authcre.getHashedPassword())) {
             log.info("User with id {} logged in", user.getUserId());
-            authCredentialsService.updateLoginInfo(authcre.getAuthId(), true);cdcd ..
+            authCredentialsService.updateLoginInfo(authcre.getAuthId(), true);
             return jwtService.generateAccessToken(user);
         } else {
             log.warn("Invalid password for user with id {}", user.getUserId());

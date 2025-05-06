@@ -8,4 +8,8 @@ public class SignupRequestDto {
     private String fullName;
     private String email;
     private String password;
+    private boolean isKycVerified;
+    private String dob;
+    private String gender;
+    private String phoneNumber;
 }

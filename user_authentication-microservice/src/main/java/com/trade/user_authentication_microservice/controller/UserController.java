@@ -17,6 +17,15 @@ public class UserController {
 
     private final UserService userService;
 
+
+
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        log.info("Creating user with email: {}", user.getEmail());
+        User savedUser = userService.createUser(user);
+        return ResponseEntity.ok(savedUser);
+    }
+
     // Get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable String id) {

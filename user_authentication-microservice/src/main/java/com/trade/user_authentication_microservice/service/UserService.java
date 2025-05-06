@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,10 +16,14 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    
 
     public User createUser(User user) {
         log.info("Creating user with email: {}", user.getEmail());
+        LocalDateTime now = LocalDateTime.now();
+
+        user.setCreatedAt(now);
+        user.setUpdatedAt(now);
+
         User savedUser = userRepository.save(user);
         log.debug("User created: {}", savedUser);
         return savedUser;

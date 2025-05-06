@@ -6,6 +6,10 @@ import com.trade.user_authentication_microservice.dto.UserDto;
 import com.trade.user_authentication_microservice.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +23,16 @@ public class AuthController {
 
     // Login Endpoint
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequestDto loginRequestDto) {
         log.info("Login request received for email: {}", loginRequestDto.getEmail());
         String token = authService.login(loginRequestDto);
-        return ResponseEntity.ok(token);
+
+        // Create a map to hold the token as key-value pair
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+
+        // Return the response with a status code of 200 OK
+        return ResponseEntity.ok(response);
     }
 
     // Signup Endpoint
