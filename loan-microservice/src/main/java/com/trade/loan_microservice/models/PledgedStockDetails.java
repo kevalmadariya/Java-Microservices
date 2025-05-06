@@ -17,5 +17,8 @@ public class PledgedStockDetails {
     @Id
     private String id;
     private String stockId;
+
+    private String userLoanDetailsId;  // <== Make sure this exists and matches the repository method name
+
     private int quantity;
 }
