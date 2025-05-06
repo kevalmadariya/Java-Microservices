@@ -18,4 +18,5 @@ public class PledgedStockDetails {
     private String id;
     private String stockId;
     private int quantity;
+    private String userLoanDetailsId;
 }
