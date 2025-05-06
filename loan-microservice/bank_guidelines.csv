@@ -1,0 +1,20 @@
+Bank Name,Interest Rate (%),Minimum Loan (INR),Maximum Loan (INR),Cap Type,LTV (%),Tenure (Years)
+State Bank of India,11.50 - 11.50,100,750,Large,60 - 65,Up to 15
+HDFC Bank,8.75 - 9.40,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+ICICI Bank,11.50 - 11.50,₹5,00,000,₹10,00,00,000,Large,Up to 50,Up to 30
+Axis Bank,8.70 - 9.10,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+Kotak Mahindra Bank,8.70 - 8.75,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+Bank of Baroda,9.40 - 10.75,1,20,Large,Up to 90,Up to 30
+Bank of India,8.30 - 9.10,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+Bank of Maharashtra,8.35 - 10.90,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+Indian Overseas Bank,9.55+,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+Punjab & Sind Bank,8.55 - 10.00,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+Union Bank of India,8.35 - 10.75,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+Canara Bank,8.55 - 11.75,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+IDBI Bank,8.45 - 12.25,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+Yes Bank,9.40 - 10.25,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 30
+Bandhan Bank,9.16 - 13.33,₹5,00,000,₹10,00,00,000,Mid,Up to 90,Up to 30
+Tamilnad Mercantile Bank,9.45 - 9.95,₹5,00,000,₹10,00,00,000,Mid,Up to 90,Up to 30
+Central Bank of India,8.35 - 9.35,₹20,00,000,₹10,00,00,000,Large,75 - 90,Up to 30
+Indian Bank,8.50 - 10.00,₹5,00,000,₹10,00,00,000,Large,Up to 90,Up to 15
+South Indian Bank,9.00 - 10.00,₹25,00,000,₹10,00,00,000,Mid,Up to 75,Up to 12
