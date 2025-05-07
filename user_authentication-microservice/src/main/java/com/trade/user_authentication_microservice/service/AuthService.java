@@ -24,7 +24,7 @@ public class AuthService {
     private final AuthCredentialsRepository authCredentialsRepository;
     private final AuthCredentialsService authCredentialsService;
 
-    public String login(LoginRequestDto loginRequestDto) {
+    public LoginResponseDto login(LoginRequestDto loginRequestDto) {
         User user = (User) userRepository.findByEmail(loginRequestDto.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
@@ -38,7 +38,11 @@ public class AuthService {
         if (PasswordUtil.checkPassword(loginRequestDto.getPassword(), authcre.getHashedPassword())) {
             log.info("User with id {} logged in", user.getUserId());
             authCredentialsService.updateLoginInfo(authcre.getAuthId(), true);
-            return jwtService.generateAccessToken(user);
+
+            LoginResponseDto lrd = new LoginResponseDto();
+            lrd.setUserId(user.getUserId());
+            lrd.setToken(jwtService.generateAccessToken(user));
+            return lrd;
         } else {
             log.warn("Invalid password for user with id {}", user.getUserId());
             authCredentialsService.updateLoginInfo(authcre.getAuthId(), false);

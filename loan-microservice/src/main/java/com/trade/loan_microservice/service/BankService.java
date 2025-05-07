@@ -32,4 +32,8 @@ public class BankService {
     public List<Bank> getAllBanks() {
         return bankRepository.findAll();
     }
+
+    public Optional<Bank> findByEmail(String email) {
+        return bankRepository.findByEmail(email);
+    }
 }

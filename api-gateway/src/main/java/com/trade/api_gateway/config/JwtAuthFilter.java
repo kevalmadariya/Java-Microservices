@@ -52,7 +52,15 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
                     .verifyWith((SecretKey) key)
                     .build()
                     .parseSignedClaims(token);
-                
+                System.out.println(-1);
+                System.out.println(-1);
+                System.out.println(-1);
+                System.out.println(-1);
+                System.out.println(-1);
+                System.out.println(-1);
+                System.out.println(-1);
+                System.out.println(-1);
+                System.out.println(-1);
                 return chain.filter(exchange);
             } catch (Exception e) {
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);

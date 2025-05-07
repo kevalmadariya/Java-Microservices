@@ -16,11 +16,11 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserLoanDetails {
-    @Id
-    private String id;
-    private List<PledgedStockDetails> pledgedStockList;
-    private String userId;
-    private BigDecimal amtLoanNeeded;
-    private LocalDateTime createdAt;
-}
+    public class UserLoanDetails {
+        @Id
+        private String id;
+        private List<PledgedStockDetails> pledgedStockList;
+        private String userId;
+        private BigDecimal amtLoanNeeded;
+        private LocalDateTime createdAt;
+    }

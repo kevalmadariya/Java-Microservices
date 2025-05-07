@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/portfolio")
-@CrossOrigin(origins = "*")
 public class UserPortfolioController {
 
     @Autowired
@@ -19,8 +18,27 @@ public class UserPortfolioController {
         return portfolioService.getUserPortfolioWithPnL(userId);
     }
 
-    @PostMapping("/")
-    public UserPortfolio createOrUpdate(@RequestBody UserPortfolio portfolio) {
+    @PostMapping("/{userId}")
+    public UserPortfolio createOrUpdate(@PathVariable String userId,@RequestBody UserPortfolio portfolio) {
+        portfolio.setUserId(userId);
+        System.out.println(portfolio.getUserId());
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
+        System.out.println(-1);
         return portfolioService.saveOrUpdatePortfolio(portfolio);
     }
 

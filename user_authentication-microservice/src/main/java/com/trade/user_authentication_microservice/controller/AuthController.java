@@ -1,6 +1,7 @@
 package com.trade.user_authentication_microservice.controller;
 
 import com.trade.user_authentication_microservice.dto.LoginRequestDto;
+import com.trade.user_authentication_microservice.dto.LoginResponseDto;
 import com.trade.user_authentication_microservice.dto.SignupRequestDto;
 import com.trade.user_authentication_microservice.dto.UserDto;
 import com.trade.user_authentication_microservice.service.AuthService;
@@ -23,16 +24,14 @@ public class AuthController {
 
     // Login Endpoint
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
         log.info("Login request received for email: {}", loginRequestDto.getEmail());
-        String token = authService.login(loginRequestDto);
+        LoginResponseDto lrd = authService.login(loginRequestDto);
 
         // Create a map to hold the token as key-value pair
-        Map<String, String> response = new HashMap<>();
-        response.put("token", token);
 
         // Return the response with a status code of 200 OK
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(lrd);
     }
 
     // Signup Endpoint

@@ -26,11 +26,9 @@ public class LoanStatus {
     private BigDecimal finalScore;
     private String status; // ENUM: "pending", "approved", "rejected", etc.
     private BigDecimal interestRate; // finaly decided by bank
-    @DBRef
-    private Bank bank;
-
-    @DBRef
-    private UserLoanDetails userLoanDetails;
+    
+    private String bankId;
+    private String userLoanDetailsId;
 
     private LocalDateTime updatedAt;
 }

@@ -3,6 +3,8 @@ package com.trade.loan_microservice.controller;
 import com.trade.loan_microservice.models.*;
 import com.trade.loan_microservice.service.*;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +15,12 @@ import java.util.List;
 public class SecurityGuidelinesController {
     private final SecurityGuidelinesService guidelinesService;
 
-    @PostMapping
-    public SecurityGuidelines addGuideline(@RequestBody SecurityGuidelines guideline) {
-        return guidelinesService.addGuideline(guideline);
+    @PostMapping()
+    public ResponseEntity<SecurityGuidelines> addGuideline(@RequestBody SecurityGuidelines guideline) {
+        System.out.println(-2);
+        System.out.println(guideline.getLTV());
+        System.out.println(-2);
+        return ResponseEntity.ok(guidelinesService.addGuideline(guideline));
     }
 
     @DeleteMapping("/{id}")
@@ -24,7 +29,7 @@ public class SecurityGuidelinesController {
     }
 
     @GetMapping("/bank/{bankId}")
-    public List<SecurityGuidelines> getByBankId(@PathVariable String bankId) {
+    public SecurityGuidelines getByBankId(@PathVariable String bankId) {
         return guidelinesService.getByBankId(bankId);
     }
 

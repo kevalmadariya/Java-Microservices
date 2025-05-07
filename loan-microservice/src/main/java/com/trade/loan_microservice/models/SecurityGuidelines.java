@@ -1,6 +1,5 @@
 package com.trade.loan_microservice.models;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 import lombok.AllArgsConstructor;
@@ -20,9 +19,8 @@ public class SecurityGuidelines {
     @Id
     private String id;
 
-    @DBRef
-    private Bank bank;
-
+    private String bankId;
+    
     private BigDecimal LTV;
     private BigDecimal minimumLoan;
     private BigDecimal maximumLoan;

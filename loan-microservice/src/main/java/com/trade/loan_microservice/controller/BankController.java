@@ -1,7 +1,11 @@
 package com.trade.loan_microservice.controller;
 
+import com.trade.loan_microservice.dto.LoginRequestDto;
+import com.trade.loan_microservice.dto.LoginResponseDto;
 import com.trade.loan_microservice.models.*;
 import com.trade.loan_microservice.service.*;
+
+import jakarta.ws.rs.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +17,27 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BankController {
     private final BankService bankService;
+    private final JwtService jwtService;
 
-    @PostMapping
-    public Bank addBank(@RequestBody Bank bank) {
-        return bankService.addBank(bank);
+    @PostMapping("/signup")
+    public ResponseEntity<Bank> addBank(@RequestBody Bank bank) {
+        return ResponseEntity.ok(bankService.addBank(bank));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto lreqd) {
+        Bank bank = bankService.findByEmail(lreqd.getEmail()).orElse(null);
+        // 2. Simple password comparison (not secure for production!)
+        if (!lreqd.getPassword().equals(bank.getPassword())) {
+            throw new BadRequestException("Invalid password");
+        }
+
+
+        LoginResponseDto lresd = new LoginResponseDto();
+        lresd.setBankId(bank.getId());
+        lresd.setToken(jwtService.generateAccessToken(bank));
+        // 3. Generate and return response
+        return ResponseEntity.ok(lresd);
     }
 
     @DeleteMapping("/{id}")
@@ -34,5 +55,4 @@ public class BankController {
         return bankService.getAllBanks();
     }
 
-    
 }

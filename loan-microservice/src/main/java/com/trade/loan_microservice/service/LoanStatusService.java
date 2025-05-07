@@ -32,6 +32,10 @@ public class LoanStatusService {
         return loanStatusRepository.findByStatus(status);
     }
 
+    public List<LoanStatus> getByBankId(String bankId) {
+        return loanStatusRepository.findByBankId(bankId);
+    }
+
     public List<LoanStatus> getAll() {
         return loanStatusRepository.findAll();
     }

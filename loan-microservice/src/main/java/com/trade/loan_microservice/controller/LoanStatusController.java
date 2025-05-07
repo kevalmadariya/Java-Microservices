@@ -37,4 +37,9 @@ public class LoanStatusController {
     public List<LoanStatus> getAll() {
         return loanStatusService.getAll();
     }
+
+    @GetMapping("/bank/{bankId}")
+    public List<LoanStatus> getByBankId(@PathVariable String bankId) {
+        return loanStatusService.getByBankId(bankId);
+    }
 }

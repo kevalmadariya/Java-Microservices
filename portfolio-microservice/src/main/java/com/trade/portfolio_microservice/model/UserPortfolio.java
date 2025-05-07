@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class UserPortfolio {
     @Id
     private String portfolioId;
-    private String userId = "123";
+    private String userId;
     
     private Double investedAmount = 0.0;
     private Double balance = 10000.0;

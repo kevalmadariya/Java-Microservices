@@ -24,9 +24,11 @@ public class SecurityGuidelinesService {
         return guidelinesRepository.existsById(id);
     }
 
-    public List<SecurityGuidelines> getByBankId(String bankId) {
-        return guidelinesRepository.findByBank_Id(bankId);
+    public SecurityGuidelines getByBankId(String bankId) {
+        return guidelinesRepository.findByBankId(bankId)
+                .orElseThrow(() -> new RuntimeException("No guidelines found for bank: " + bankId));
     }
+
 
     public List<SecurityGuidelines> getAll() {
         return guidelinesRepository.findAll();

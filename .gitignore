@@ -1,0 +1,46 @@
+# === PYTHON / FASTAPI ===
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.env
+.venv/
+venv/
+env/
+pip-log.txt
+*.log
+
+# VS Code and other IDEs
+.vscode/
+.idea/
+
+# === NODE / REACT FRONTEND ===
+node_modules/
+build/
+dist/
+.env.local
+.env.development
+.env.production
+.npmrc
+.yarn.lock
+package-lock.json
+
+# === JAVA / SPRING BOOT ===
+target/
+*.class
+*.jar
+*.war
+*.iml
+*.log
+.gradle/
+build/
+out/
+.project
+.classpath
+.settings/
+
+# OS / Editor generated
+.DS_Store
+Thumbs.db
