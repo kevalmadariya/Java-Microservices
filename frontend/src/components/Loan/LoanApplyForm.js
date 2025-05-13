@@ -20,13 +20,13 @@ const LoanApplyForm = () => {
     useEffect(() => {
         let collateralTotal = 0;
         let holdingsTotal = 0;
-        
+
         stockHoldings.forEach(holding => {
             const pledgedShares = selectedStocks[holding.holdingId] || 0;
             collateralTotal += pledgedShares * holding.averageBuyPrice;
             holdingsTotal += holding.numberOfShares * holding.averageBuyPrice;
         });
-        
+
         setTotalCollateralValue(collateralTotal);
         setTotalHoldingsValue(holdingsTotal);
     }, [selectedStocks, stockHoldings]);
@@ -63,11 +63,17 @@ const LoanApplyForm = () => {
             setShowStocks(true);
 
             // Then fetch the user's stock holdings
-            const holdingsResponse = await fetch(`http://localhost:8081/portfolio-microservice/api/stock-holdings/user/${userId}`);
+            const holdingsResponse = await fetch(`http://localhost:8081/portfolio-microservice/api/stock-holdings/user/${userId}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                },
+            })
             if (holdingsResponse.ok) {
                 const data = await holdingsResponse.json();
                 setStockHoldings(data);
-                
+
                 const initialSelected = {};
                 data.forEach(holding => {
                     initialSelected[holding.holdingId] = 0;
@@ -130,8 +136,8 @@ const LoanApplyForm = () => {
         }
 
         // Validate if total collateral is at least 2x loan amount
-        if (totalCollateralValue < 2 * loanAmount) {
-            alert(`Total collateral value (₹${totalCollateralValue.toFixed(2)}) must be at least 2x the loan amount (₹${loanAmount})`);
+        if (totalCollateralValue < 1.4 * loanAmount) {
+            alert(`Total collateral value (₹${totalCollateralValue.toFixed(2)}) must be at least 70% of the loan amount (₹${loanAmount})`);
             return;
         }
 
@@ -158,11 +164,12 @@ const LoanApplyForm = () => {
             if (!response.ok) {
                 throw new Error('Failed to submit pledged stocks');
             }
-            
+
             const ps = await response.json()
-            console.log(ps)
+            console.log(-1)
+            console.log(loanId, pledgedStocks)
             // Navigate to eligible banks page
-            navigate('/eligible_banks', { state: { loanId }, pledgedStock: ps });
+            navigate('/eligible_banks', { state: { loanId, pledgedStock: pledgedStocks } });
         } catch (error) {
             console.error('Error submitting pledged stocks:', error);
             alert('Error submitting your pledged stocks. Please try again.');
@@ -191,7 +198,7 @@ const LoanApplyForm = () => {
             }));
 
             // Submit pledged stocks
-            const response = await fetch('http://localhost:8081/loan-microservice/api/pledged-stock-guidelines/', {
+            const response = await fetch('http://localhost:8081/loan-microservice/api/pledged-stock-guidelines', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(pledgedStocks),
@@ -201,8 +208,16 @@ const LoanApplyForm = () => {
                 throw new Error('Failed to submit pledged stocks');
             }
 
+            const ps = await response.json()
+            console.log(-1)
+            console.log(loanId, pledgedStocks)
             // Navigate to eligible banks page
-            navigate('/eligible_banks', { state: { loanId } });
+            navigate('/eligible_banks', {
+                state: {
+                    loanId: loanId,  // Make sure this has a value
+                    pledgedStock: pledgedStocks  // Make sure this is properly populated
+                }
+            });
         } catch (error) {
             console.error('Error submitting pledged stocks:', error);
             alert('Error submitting your pledged stocks. Please try again.');
@@ -241,7 +256,7 @@ const LoanApplyForm = () => {
 
             {showStocks && stockHoldings.length > 0 && (
                 <>
-                    {totalHoldingsValue < 2 * loanAmount ? (
+                    {totalHoldingsValue < 1.4 * loanAmount ? (
                         <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                             <div className="modal-dialog">
                                 <div className="modal-content">
@@ -249,7 +264,7 @@ const LoanApplyForm = () => {
                                         <h5 className="modal-title">Insufficient Holdings</h5>
                                     </div>
                                     <div className="modal-body">
-                                        <p>Your total holdings value (₹{totalHoldingsValue.toFixed(2)}) is less than 2x the loan amount (₹{(2 * loanAmount).toFixed(2)}).</p>
+                                        <p>Your total holdings value (₹{totalHoldingsValue.toFixed(2)}) is less than 70% the loan amount (₹{(1.4 * loanAmount).toFixed(2)}).</p>
                                         <p>You can either:</p>
                                         <ol>
                                             <li>Pledge all your shares ({stockHoldings.length} stocks)</li>
@@ -257,14 +272,14 @@ const LoanApplyForm = () => {
                                         </ol>
                                     </div>
                                     <div className="modal-footer">
-                                        <button 
-                                            onClick={pledgeAllShares} 
+                                        <button
+                                            onClick={pledgeAllShares}
                                             className="btn btn-primary"
                                         >
                                             Pledge All Shares
                                         </button>
-                                        <button 
-                                            onClick={adjustLoanAmount} 
+                                        <button
+                                            onClick={adjustLoanAmount}
                                             className="btn btn-secondary"
                                         >
                                             Adjust Loan Amount
@@ -291,13 +306,13 @@ const LoanApplyForm = () => {
                                         <span className="summary-value">₹{totalCollateralValue.toFixed(2)}</span>
                                     </div>
                                     <div className="summary-item">
-                                        <span className="summary-label">Required Collateral (2x Loan):</span>
-                                        <span className="summary-value">₹{(2 * loanAmount).toFixed(2)}</span>
+                                        <span className="summary-label">Required Collateral (70% Loan):</span>
+                                        <span className="summary-value">₹{(1.4 * loanAmount).toFixed(2)}</span>
                                     </div>
-                                    <div className={`summary-item ${totalCollateralValue >= 2 * loanAmount ? 'text-success' : 'text-danger'}`}>
+                                    <div className={`summary-item ${totalCollateralValue >= 1.4 * loanAmount ? 'text-success' : 'text-danger'}`}>
                                         <span className="summary-label">Status:</span>
                                         <span className="summary-value">
-                                            {totalCollateralValue >= 2 * loanAmount ? '✓ Sufficient' : '✗ Insufficient'}
+                                            {totalCollateralValue >= 1.4 * loanAmount ? '✓ Sufficient' : '✗ Insufficient'}
                                         </span>
                                     </div>
                                 </div>
@@ -310,7 +325,7 @@ const LoanApplyForm = () => {
                                                 <th>Shares to Pledge</th>
                                                 <th>Current Value</th>
                                                 <th>Avg Buy Price</th>
-                                                <th>PnL</th>
+                                                {/* <th>PnL</th> */}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -341,9 +356,9 @@ const LoanApplyForm = () => {
                                                         </td>
                                                         <td>₹{pledgedValue.toFixed(2)}</td>
                                                         <td>₹{holding.averageBuyPrice.toFixed(2)}</td>
-                                                        <td className={holding.pnl >= 0 ? 'text-success' : 'text-danger'}>
+                                                        {/* <td className={holding.pnl >= 0 ? 'text-success' : 'text-danger'}>
                                                             ₹{holding.pnl.toFixed(2)}
-                                                        </td>
+                                                        </td> */}
                                                     </tr>
                                                 );
                                             })}
@@ -354,14 +369,14 @@ const LoanApplyForm = () => {
                                     <button
                                         onClick={handleViewBanks}
                                         className="submit-button"
-                                        disabled={totalCollateralValue < 2 * loanAmount}
+                                        disabled={totalCollateralValue < 1.4 * loanAmount}
                                     >
                                         View Eligible Banks
                                     </button>
                                 </div>
-                                {totalCollateralValue < 2 * loanAmount && (
+                                {totalCollateralValue < 1.4 * loanAmount && (
                                     <div className="alert alert-warning mt-3">
-                                        Total collateral value must be at least 2x the loan amount to proceed.
+                                        Total collateral value must be at least 70% the loan amount to proceed.
                                     </div>
                                 )}
                             </div>

@@ -49,7 +49,7 @@ const BankLogin = ({ error }) => {
           console.log(data)
 
           if (data) {
-            localStorage.setItem('bankId', data.userId);
+            localStorage.setItem('bankId', data.bankId);
             localStorage.setItem('token', data.token);
             navigate('/bank_dashboard');
           } else {

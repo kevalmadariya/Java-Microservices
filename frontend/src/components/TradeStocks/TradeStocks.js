@@ -111,14 +111,17 @@ const TradeStocks = () => {
         try {
             const endpoint = transactionType === "BUY" 
                 ? "http://localhost:8081/portfolio-microservice/api/transactions" 
-                : "http://localhost:8082/api/transactions";
+                : "http://localhost:8081/portfolio-microservice/api/transactions";
 
+            const token = localStorage.getItem("token");
+            console.log(token)
             const response = await fetch(endpoint, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(transaction)
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+              },
+              body: JSON.stringify(transaction)
             });
 
             if (!response.ok) {

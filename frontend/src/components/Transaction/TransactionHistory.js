@@ -167,7 +167,13 @@ const TransactionHistory = () => {
             setIsLoading(true);
             try {
                 const res = await fetch(
-                    `http://localhost:8081/portfolio-microservice/api/transactions/user/${userId}`
+                    `http://localhost:8081/portfolio-microservice/api/transactions/user/${userId}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem('token')}`
+                          },
+                    }
                 );
                 
                 if (!res.ok) {

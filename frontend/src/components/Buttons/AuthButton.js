@@ -8,7 +8,7 @@ const AuthButton = () => {
     if(localStorage.getItem('userId')){
       localStorage.removeItem('userId');
     }
-    else{
+    else if(localStorage.getItem('bankId')){
       localStorage.removeItem('bankId');
     }
     window.location.href = '/login'; // or use navigate if using `react-router`

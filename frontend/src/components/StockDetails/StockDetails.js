@@ -69,7 +69,8 @@ function StockDetails() {
             const response = await fetch("http://localhost:8081/portfolio-microservice/api/transactions", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify(transaction)
             });
@@ -82,7 +83,7 @@ function StockDetails() {
             console.log("Transaction saved:", data);
             setModalMessage(`Successfully ${type.toLowerCase()}ed ${quantity} shares of ${symbol} at $${price}`);
             setShowSuccessModal(true);
-            
+
         } catch (error) {
             console.error("Failed to save transaction:", error);
             setModalMessage(error.message || `Failed to complete ${type.toLowerCase()} transaction`);
