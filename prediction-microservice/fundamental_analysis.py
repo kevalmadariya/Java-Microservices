@@ -100,7 +100,7 @@ async def check_fundamentals(
                 debt_to_equity = debt_to_equity / 100
 
             conditions = {
-                "PE < Industry PE": pe_ratio is not None and industry_pe is not None and pe_ratio < industry_pe,
+                # "PE < Industry PE": pe_ratio is not None and industry_pe is not None and pe_ratio < industry_pe,
                 "Debt/Equity < 0.5": debt_to_equity is not None and debt_to_equity < 0.5,
                 "PB < 10": pb_ratio is not None and pb_ratio < 10,
                 "EPS > 0.1×Price": eps is not None and current_price is not None and eps > 0.1 * current_price,

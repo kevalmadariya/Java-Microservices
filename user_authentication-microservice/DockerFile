@@ -1,0 +1,17 @@
+# Use official OpenJDK base image
+FROM openjdk:21-jdk-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy the built JAR file (assuming standard Spring Boot build output)
+COPY user_authentication-microservice/target/user-authentication-microservice.jar app.jar
+
+# Expose the default Eureka server port
+EXPOSE 8084
+
+# Set environment variables if needed (adjust as per your config)
+ENV SPRING_PROFILES_ACTIVE=default
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
