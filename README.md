@@ -10,6 +10,8 @@
 
 ---
 
+![WhatsApp Image 2025-05-13 at 11 28 13 PM](https://github.com/user-attachments/assets/9f594a6e-c651-4e13-8eb8-5d2979891a2b)
+---
 ## 🛠️ Tech Stack
 
 - *Frontend*: ReactJS  
@@ -84,13 +86,6 @@
    - Margin call options: buy more or deposit funds
 7. *Post-Repayment*:
    - Securities returned to borrower
-
----
-
-
-![WhatsApp Image 2025-05-13 at 11 28 13 PM](https://github.com/user-attachments/assets/9f594a6e-c651-4e13-8eb8-5d2979891a2b)
-
-
 
 ---
 
